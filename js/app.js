@@ -36,6 +36,7 @@ var Player = function (playerX, playerY) {
     this.originX = this.x;
     this.originY = this.y;
     this.sprite = 'images/char-boy.png';
+    this.win_status = 0;
 };
 Player.prototype.handleInput = function (key) {
     switch (key){
@@ -46,15 +47,18 @@ Player.prototype.handleInput = function (key) {
     }
     this.render();
 };
+Player.prototype.win = function(){
+    // 玩家过河成功时执行
+
+};
 Player.prototype.update = function () {
-    var self = this;
+    var player = this;
 
     // 碰撞检测
     allEnemies.forEach(function(enemy){
         // player与enemy之间存在距离
-        if((enemy.x - self.x - 0.3) > -1 && (enemy.x - self.x - 0.3) < 1 && self.y ===  enemy.y){
-            self.reset();
-
+        if((enemy.x - player.x - 0.3) > -1 && (enemy.x - player.x - 0.3) < 1 && player.y ===  enemy.y){
+            player.reset();
         }
     });
     // 检测玩家过河成功
