@@ -111,17 +111,12 @@ var allEnemies = [];
 
 // 初始化5个敌人
 (function(){
-    /*for(var i=0;i<5;i++){
+    for(var i=0;i<5;i++){
         var _init_x = 1 - Math.ceil(Math.random()*5);
-        var _init_y = (Math.floor(Math.random()*3))*83+55;
-        var _init_speed = (1-_init_x)*100;
+        var _init_y = Math.floor(Math.random()*3)+2;
+        var _init_speed = Math.ceil(Math.random()*4);
         allEnemies.push( new Enemy(_init_x, _init_y, _init_speed) )
-    }*/
-    allEnemies.push(new Enemy(-5,2,4));
-    allEnemies.push(new Enemy(-3,3,1));
-    allEnemies.push(new Enemy(-1,4,2));
-    allEnemies.push(new Enemy(-2,2,3));
-    allEnemies.push(new Enemy(-4,4,1));
+    }
 })();
 
 
