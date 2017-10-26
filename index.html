@@ -4,13 +4,44 @@
     <meta charset="UTF-8">
     <title>Effective JavaScript: Frogger</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .game-score-wrapper{
+            float: right;
+            margin-right: 20px;
+        }
+        .game-score-wrapper li{
+            float: left;
+            list-style: none;
+            margin-left: 20px;
+        }
+    </style>
 </head>
+<div class="user-title-wrapper">
+    <span class="game-title font-common">经典街机游戏 - 青蛙过河</span>
+
+    <ul class="game-score-wrapper">
+        <li class="font-common"><span>获胜：</span><span id="win_times">20次</span></li>
+        <li class="font-common"><span>失败：</span><span id="fail_times">1次</span></li>
+    </ul>
+
+</div>
 <body>
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
     <script>
-        // 碰撞检测思路 当怪物的location加上宽度等于Player的location时，发生碰撞
+        // 从localStorage中读取数据并渲染
+        function getScores(){
+            var win_score = localStorage.getItem('win_score');
+            var fail_score = localStorage.getItem('fail_score');
+
+            var win_ele = document.getElementById('win_times');
+            var fail_ele = document.getElementById('fail_times');
+
+            win_ele.innerHTML = (win_score == null) ? 0 + '次' : win_score + '次';
+            fail_ele.innerHTML = (fail_score == null) ? 0 + '次' : fail_score + '次';
+        }
+        window.onload = getScores();
     </script>
 </body>
 </html>

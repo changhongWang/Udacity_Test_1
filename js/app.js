@@ -31,12 +31,11 @@ Enemy.prototype.render = function() {
 // 这个类需要一个 update() 函数， render() 函数和一个 handleInput()函数
 var Player = function (playerX, playerY) {
     // init
-    this.x = (playerX>0 && playerX<6)? playerX: 3;
+    this.x = (playerX>0 && playerX<6)? playerX: 2;
     this.y = (playerY>4 && playerY<7)? playerY: 6;
     this.originX = this.x;
     this.originY = this.y;
     this.sprite = 'images/char-boy.png';
-    this.win_status = 0;
 };
 Player.prototype.handleInput = function (key) {
     switch (key){
@@ -49,7 +48,35 @@ Player.prototype.handleInput = function (key) {
 };
 Player.prototype.win = function(){
     // 玩家过河成功时执行
+    var player = this;
+    this.reset();
+    // 设置一个闪亮的星星快速移动标志胜利得一星
+    this.sprite = 'images/Star.png';
+    var win_score = localStorage.getItem('win_score');
+    win_score = win_score == null ? 1 : parseInt(win_score)+1;
+    localStorage.setItem('win_score',win_score);
+    getScores();
+    var timer = setInterval(function(){
+        // 设置星星移动速度
+        player.y -= 0.015 * 20;
+        if(player.y <= 2){
+            // 移到屏幕外
+            player.y = -1;
+            player.x = -1;
+        }
+    },60);
 
+    setTimeout(function(){
+        clearInterval(timer);
+        player.reset();
+    },1000);
+};
+Player.prototype.fail = function () {
+    // 失败时执行
+    var fail_score = localStorage.getItem('fail_score');
+    fail_score = fail_score == null ? 1 : parseInt(fail_score)+1;
+    localStorage.setItem('fail_score',fail_score);
+    getScores();
 };
 Player.prototype.update = function () {
     var player = this;
@@ -57,14 +84,15 @@ Player.prototype.update = function () {
     // 碰撞检测
     allEnemies.forEach(function(enemy){
         // player与enemy之间存在距离
-        if((enemy.x - player.x - 0.3) > -1 && (enemy.x - player.x - 0.3) < 1 && player.y ===  enemy.y){
+        if((enemy.x - player.x - 0.3) > -1 && (enemy.x - player.x - 0.3) < 0.5 && player.y ===  enemy.y){
+            // 玩家过河失败
             player.reset();
+            player.fail();
         }
     });
     // 检测玩家过河成功
     if(this.y === 1){
-        // self.win();
-        this.reset();
+        player.win();
     }
 };
 // 重置玩家的位置
@@ -74,7 +102,7 @@ Player.prototype.reset = function() {
     this.y = this.originY;
 };
 Player.prototype.render = function () {
-    ctx.drawImage(Resources.get(this.sprite), this.x*100, (this.y-2)*83+55);
+    ctx.drawImage(Resources.get(this.sprite), this.x*100, (this.y-2)*83+70);
 };
 
 // 现在实例化你的所有对象

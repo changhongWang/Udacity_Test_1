@@ -69,7 +69,7 @@
         var ready = true;
         for(var k in resourceCache) {
             if(resourceCache.hasOwnProperty(k) &&
-               !resourceCache[k]) {
+                !resourceCache[k]) {
                 ready = false;
             }
         }

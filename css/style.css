@@ -1,3 +1,32 @@
+*{
+    padding: 0;
+    margin: 0;
+}
 body {
     text-align: center;
+}
+.user-title-wrapper{
+    position: absolute;
+    clear: both;
+    width: 100%;
+    top: 0;
+    height: 50px;
+    z-index: -1;
+    background: rgba(67,144,255,.8);
+    box-shadow: 0 10px 10px rgba(67,144,255,.4);
+}
+.font-common{
+    font-family: 'Microsoft Yahei', sans-serif,'PingFang SC';
+    font-size: 20px;
+    color: #eee;
+    height: 50px;
+    line-height: 50px;
+    letter-spacing: 2px;
+}
+.game-title{
+    float: left;
+    margin-left: 20px;
+}
+.game-score{
+    float: right;
 }
